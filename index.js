@@ -1,33 +1,36 @@
 // 📄 index.js
 const express = require('express');
 const app = express();
-__path = process.cwd()
+const path = require('path');
 const bodyParser = require("body-parser");
 const PORT = process.env.PORT || 8000;
-let code = require('./pair');
-const adminRoutes = require('./adminRoutes');
+
+// Import routes - make sure these files exist and export correctly
+const codeRouter = require('./pair');
+const adminRouter = require('./adminRoutes');
 
 require('events').EventEmitter.defaultMaxListeners = 500;
 
-// API routes
-app.use('/code', code);
-app.use('/admin', adminRoutes);
-
-// Page routes
-app.use('/pair', async (req, res, next) => {
-    res.sendFile(__path + '/pair.html');
-});
-
-app.use('/admin-dashboard', async (req, res, next) => {
-    res.sendFile(__path + '/admin-dashboard.html');
-});
-
-app.use('/', async (req, res, next) => {
-    res.sendFile(__path + '/main.html');
-});
-
+// Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// API routes
+app.use('/code', codeRouter);
+app.use('/admin', adminRouter);
+
+// Page routes
+app.get('/pair', (req, res) => {
+    res.sendFile(path.join(__dirname, 'pair.html'));
+});
+
+app.get('/admin-dashboard', (req, res) => {
+    res.sendFile(path.join(__dirname, 'admin-dashboard.html'));
+});
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'main.html'));
+});
 
 // Health check endpoint
 app.get('/health', (req, res) => {
