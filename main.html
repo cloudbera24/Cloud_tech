@@ -1,27 +1,29 @@
-<!-- [file name]: main.html -->
-[file content begin]
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Cloud Tech</title>
-  <link rel="icon" type="image/x-icon" href="https://i.ibb.co/hRVcfQGK/vision-v.jpg">
-  <meta property="og:image" content="https://i.ibb.co/BH4yttvK/vision-v.jpg">
+  <title>Cloud Tech - Professional WhatsApp Bot</title>
+  <link rel="icon" type="image/x-icon" href="https://i.ibb.co/0jQ2L4z/cloud-tech-icon.png">
+  <meta property="og:image" content="https://i.ibb.co/0jQ2L4z/cloud-tech-icon.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: linear-gradient(135deg, #00D4FF, #0066CC);
+      --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
       --glass: rgba(255, 255, 255, 0.15);
       --glass-border: rgba(255, 255, 255, 0.2);
       --text: #ffffff;
-      --muted: #708090;
-      --highlight: #00D4FF;
-      --radius: 16px;
-      --blur: 16px;
+      --muted: #a0aec0;
+      --highlight: #4299e1;
+      --success: #48bb78;
+      --warning: #ed8936;
+      --danger: #f56565;
+      --radius: 20px;
+      --blur: 20px;
       --transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      --glow: 0 0 15px rgba(0, 212, 255, 0.3);
+      --glow: 0 0 20px rgba(102, 126, 234, 0.4);
     }
 
     * {
@@ -40,25 +42,31 @@
       overflow-x: hidden;
       color: var(--text);
       padding: 80px 20px 120px;
-      background: url('https://i.ibb.co/Z6xVjrhF/vision-v.jpg') no-repeat center center fixed;
-      background-size: cover;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
     }
 
-    /* Liquid glass morphism effect for containers */
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Liquid glass morphism effect */
     .glass {
       background: var(--glass);
       backdrop-filter: blur(var(--blur));
       border-radius: var(--radius);
       border: 1px solid var(--glass-border);
       box-shadow: 
-        0 10px 35px rgba(0, 0, 0, 0.4),
+        0 15px 35px rgba(0, 0, 0, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.2),
         inset 0 -1px 0 rgba(0, 0, 0, 0.1);
       position: relative;
       overflow: hidden;
     }
 
-    /* Liquid glass shine effect */
     .glass::before {
       content: '';
       position: absolute;
@@ -86,68 +94,89 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.8);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       z-index: 1000;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(15px);
       transition: opacity 0.5s ease;
     }
     
     .loading-spinner {
-      width: 70px;
-      height: 70px;
-      border: 5px solid rgba(255, 255, 255, 0.3);
+      width: 80px;
+      height: 80px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
       border-radius: 50%;
       border-top-color: var(--highlight);
       animation: spin 1s ease-in-out infinite;
+      position: relative;
+    }
+    
+    .loading-spinner::after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      right: -4px;
+      bottom: -4px;
+      border: 4px solid transparent;
+      border-radius: 50%;
+      border-top-color: var(--success);
+      animation: spin 1.5s ease-in-out infinite reverse;
     }
     
     .loading-text {
-      margin-top: 20px;
+      margin-top: 25px;
       font-size: 18px;
       color: var(--text);
       text-align: center;
+      font-weight: 500;
     }
     
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
 
-    /* card */
+    /* Main container */
     .wrap {
       position: relative;
       z-index: 2;
-      width: 380px;
+      width: 420px;
       max-width: 95%;
       margin-bottom: 80px;
     }
     
     .box {
       position: relative;
-      padding: 110px 22px 26px; /* Increased top padding for avatar spacing */
+      padding: 120px 25px 30px;
       text-align: center;
-      transition: transform .5s ease, opacity .45s ease;
+      transition: transform 0.5s ease, opacity 0.45s ease;
     }
 
-    /* avatar image overlapping top with proper spacing */
+    /* Avatar styling */
     .avatar {
       position: absolute;
-      top: -70px; /* Increased distance from top */
+      top: -80px;
       left: 50%;
       transform: translateX(-50%);
-      width: 120px;
-      height: 120px;
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
       overflow: hidden;
-      border: 4px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 8px 30px rgba(255, 40, 40, 0.22);
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      box-shadow: var(--glow);
       background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
       z-index: 3;
+      transition: all 0.3s ease;
+    }
+    
+    .avatar:hover {
+      transform: translateX(-50%) scale(1.05);
+      box-shadow: 0 0 30px rgba(102, 126, 234, 0.6);
     }
     
     .avatar img {
@@ -157,49 +186,70 @@
       display: block;
     }
 
-    h3 {
+    h1 {
       color: #fff;
-      margin-top: 6px;
+      margin-top: 8px;
       font-weight: 700;
-      font-size: 1.8rem;
-      text-shadow: 0 0 12px rgba(0, 212, 255, 0.5);
+      font-size: 2.2rem;
+      text-shadow: 0 0 15px rgba(102, 126, 234, 0.5);
+      background: linear-gradient(135deg, #fff 0%, #a0aec0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     
-    h6 {
-      color: #ccc;
+    h3 {
+      color: var(--muted);
       font-weight: 400;
-      margin: 6px 0;
-      font-size: 1rem;
+      margin: 8px 0 15px;
+      font-size: 1.1rem;
+    }
+
+    .tagline {
+      background: var(--secondary);
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: inline-block;
+      margin-bottom: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
 
     .input-container {
       display: flex;
       flex-direction: column;
-      margin-top: 20px;
-      gap: 15px;
+      margin-top: 25px;
+      gap: 18px;
     }
     
     .input-container input {
-      padding: 16px;
-      border-radius: 12px;
+      padding: 18px;
+      border-radius: 15px;
       border: none;
       outline: none;
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.25);
       color: #fff;
       font-size: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       transition: all 0.3s ease;
       text-align: center;
+      font-weight: 500;
+    }
+    
+    .input-container input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
     }
     
     .input-container input:focus {
-      box-shadow: 0 0 16px rgba(0, 212, 255, 0.3);
+      box-shadow: var(--glow);
       border-color: var(--highlight);
+      background: rgba(0, 0, 0, 0.35);
     }
     
     .input-container button {
-      padding: 16px;
-      border-radius: 12px;
+      padding: 18px;
+      border-radius: 15px;
       border: none;
       background: var(--primary);
       color: #fff;
@@ -207,13 +257,30 @@
       font-size: 16px;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
       width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .input-container button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .input-container button:hover::before {
+      left: 100%;
     }
     
     .input-container button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
     }
     
     .input-container button:active {
@@ -221,10 +288,36 @@
     }
     
     .info {
-      margin-top: 14px;
-      color: #ffdede;
+      margin-top: 20px;
+      color: rgba(255, 255, 255, 0.9);
       font-weight: 600;
-      text-shadow: 0 0 6px rgba(255, 120, 120, 0.06);
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+      min-height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .admin-access {
+      margin-top: 25px;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .admin-access a {
+      color: var(--highlight);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .admin-access a:hover {
+      color: #fff;
     }
 
     /* Footer styling */
@@ -236,16 +329,16 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 1rem 2rem;
+      padding: 1.2rem 2rem;
       background: var(--glass);
       backdrop-filter: blur(var(--blur));
       z-index: 100;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
     }
     
     .social-icons {
       display: flex;
-      gap: 1.2rem;
+      gap: 1.5rem;
     }
     
     .social-icon {
@@ -254,61 +347,72 @@
       justify-content: center;
       color: var(--text);
       text-decoration: none;
-      font-size: 20px;
+      font-size: 22px;
       transition: all 0.3s ease;
-      width: 45px;
-      height: 45px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
     }
     
     .social-icon:hover {
-      background: rgba(255, 255, 255, 0.1);
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-5px) scale(1.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
       color: var(--highlight);
     }
 
-    /* Admin panel link */
-    .admin-panel {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
-    }
-    
-    .admin-btn {
-      padding: 10px 20px;
-      background: rgba(220, 53, 69, 0.8);
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    
-    .admin-btn:hover {
-      background: rgba(220, 53, 69, 1);
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
-    }
-
-    /* small screens */
-    @media (max-width:768px){
+    /* Responsive design */
+    @media (max-width: 768px){
       .avatar {
-        width: 96px;
-        height: 96px;
-        top: -58px; /* Adjusted for smaller avatar */
+        width: 120px;
+        height: 120px;
+        top: -70px;
       }
       
       .box {
-        padding-top: 88px; /* Adjusted padding for smaller avatar */
+        padding-top: 100px;
+      }
+      
+      h1 {
+        font-size: 1.9rem;
+      }
+      
+      .social-icons {
+        gap: 1rem;
+      }
+      
+      .social-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+      }
+    }
+    
+    @media (max-width: 480px){
+      .wrap {
+        width: 95%;
+      }
+      
+      .avatar {
+        width: 100px;
+        height: 100px;
+        top: -60px;
+      }
+      
+      .box {
+        padding: 90px 20px 25px;
+      }
+      
+      h1 {
+        font-size: 1.7rem;
+      }
+      
+      h3 {
+        font-size: 1rem;
       }
       
       .social-icons {
@@ -321,31 +425,20 @@
         font-size: 18px;
       }
       
-      .admin-panel {
-        top: 10px;
-        right: 10px;
-      }
-      
-      .admin-btn {
-        padding: 8px 16px;
-        font-size: 12px;
+      .footer {
+        padding: 1rem;
       }
     }
-    
-    @media (max-width:480px){
-      .social-icons {
-        gap: 0.5rem;
-      }
-      
-      .social-icon {
-        width: 35px;
-        height: 35px;
-        font-size: 16px;
-      }
-      
-      .wrap {
-        margin-bottom: 120px;
-      }
+
+    /* Pulse animation for status */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .pulse {
+      animation: pulse 2s infinite;
     }
   </style>
 </head>
@@ -353,115 +446,165 @@
   <!-- Loading Overlay -->
   <div class="loading-overlay" id="loadingOverlay">
     <div class="loading-spinner"></div>
-    <div class="loading-text">Initializing Cloud Tech, please wait...</div>
-  </div>
-
-  <!-- Admin Panel Link -->
-  <div class="admin-panel">
-    <a href="/admin-dashboard" class="admin-btn">
-      <i class="fas fa-tachometer-alt"></i> Admin Dashboard
-    </a>
+    <div class="loading-text">Initializing Cloud Tech System...</div>
   </div>
 
   <div class="wrap">
     <div class="box glass" id="mainBox">
-      <!-- avatar (image overlaps top of card with proper spacing) -->
-      <div class="avatar">
-        <img src="https://i.ibb.co/fY1HYkBT/vision-v.jpg" alt="Avatar">
+      <!-- Avatar -->
+      <div class="avatar pulse">
+        <img src="https://i.ibb.co/0jQ2L4z/cloud-tech-icon.png" alt="Cloud Tech Logo">
       </div>
 
-      <h3>Cloud Tech</h3>
-      <h6>Developed By Bera</h6>
-      <h6>📱 Enter your number with country code</h6>
+      <h1>Cloud Tech</h1>
+      <h3>Professional WhatsApp Bot Management</h3>
+      <div class="tagline">Developed by Bera</div>
 
-      <div class="input-container" style="margin-top:20px">
-        <input id="number" type="tel" placeholder="25474xxxx" inputmode="numeric" pattern="[0-9]*" />
-        <button id="submit">Get Pairing Code</button>
+      <h6>📱 Enter your WhatsApp number with country code</h6>
+
+      <div class="input-container">
+        <input id="number" type="tel" placeholder="254740007567" inputmode="numeric" pattern="[0-9]*" />
+        <button id="submit">Connect WhatsApp</button>
       </div>
 
-      <div class="info" id="pair" style="min-height:28px"></div>
+      <div class="info" id="pair" style="min-height:32px"></div>
+
+      <div class="admin-access">
+        <a href="/dashboard" target="_blank">
+          <i class="fas fa-cog"></i>
+          Access Admin Dashboard
+        </a>
+      </div>
     </div>
   </div>
 
   <!-- Footer -->
   <div class="footer">
     <div class="social-icons">
-      <a href="https://youtube.com/@wemacomic?si=VoLQFISuUFRtR75b" target="_blank" class="social-icon" title="YouTube">
-        <i class="fab fa-youtube"></i>
+      <a href="https://github.com/bera" target="_blank" class="social-icon" title="GitHub">
+        <i class="fab fa-github"></i>
       </a>
-      <a href="https://whatsapp.com/channel/0029Vajvy2kEwEjwAKP4SI0x" target="_blank" class="social-icon" title="Channel">
+      <a href="https://whatsapp.com" target="_blank" class="social-icon" title="WhatsApp">
         <i class="fab fa-whatsapp"></i>
       </a>
-      <a href="https://chat.whatsapp.com/GBz10zMKECuEKUlmfNsglx?mode=ems_copy_c" target="_blank" class="social-icon" title="Group">
-        <i class="fas fa-users"></i>
+      <a href="mailto:support@cloudtech.com" target="_blank" class="social-icon" title="Support">
+        <i class="fas fa-envelope"></i>
       </a>
-      <a href="https://wa.me/254790375710" target="_blank" class="social-icon" title="Contact">
-        <i class="fas fa-phone-alt"></i>
-      </a>
-      <a href="https://deploying-green.vercel.app/" target="_blank" class="social-icon" title="Support">
-        <i class="fas fa-life-ring"></i>
+      <a href="/dashboard" target="_blank" class="social-icon" title="Admin">
+        <i class="fas fa-shield-alt"></i>
       </a>
     </div>
   </div>
 
   <script>
-    // Show loading overlay for 3 seconds when page loads
+    // Enhanced loading overlay
     document.addEventListener('DOMContentLoaded', function() {
       const loadingOverlay = document.getElementById('loadingOverlay');
       
       // Show the loading overlay
       loadingOverlay.style.display = 'flex';
       
-      // Hide after 3 seconds
+      // Hide after 2.5 seconds with smooth transition
       setTimeout(function() {
         loadingOverlay.style.opacity = '0';
         setTimeout(function() {
           loadingOverlay.style.display = 'none';
         }, 500);
-      }, 3000);
+      }, 2500);
     });
 
-    // submit behavior
+    // Enhanced submit behavior
     const pair = document.getElementById('pair');
     const submit = document.getElementById('submit');
     const num = document.getElementById('number');
 
     submit.addEventListener('click', async (e) => {
       e.preventDefault();
+      
       if (!num.value || num.value.replace(/[^0-9]/g,'').length < 9) {
-        pair.innerHTML = '<span style="color:#ffb3b3;font-weight:700">Invalid or missing number</span>';
+        pair.innerHTML = '<span style="color:#feb2b2;font-weight:600">Please enter a valid phone number</span>';
+        num.focus();
         return;
       }
+      
       const number = num.value.replace(/[^0-9]/g,'');
       num.value = '+' + number;
-      num.style.background = '#120000';
-      pair.innerHTML = '<span style="color:#ffdede;font-weight:700">Processing request, please wait...</span>';
+      num.style.background = 'rgba(0, 0, 0, 0.4)';
+      
+      // Show loading state
+      submit.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connecting...';
+      submit.disabled = true;
+      
+      pair.innerHTML = '<span style="color:#fff;font-weight:600">Establishing secure connection...</span>';
+      
       try {
         let res = await fetch(`/code?number=${number}`);
         let data = await res.json();
-        let code = data.code || 'Service Unavailable';
-        pair.innerHTML = `<div id="copy" style="color:#ffb3b3;font-weight:700;cursor:pointer" onclick="copyCode()"><strong>PAIRING CODE:</strong> <span style="color:#fff">${code}</span></div>`;
-      } catch (err) {
-        pair.innerHTML = '<span style="color:orangered;font-weight:700">Error fetching pairing code</span>';
+        
+        if (data.code) {
+          let code = data.code;
+          pair.innerHTML = `
+            <div style="text-align: center;">
+              <div style="color:#fed7d7;font-weight:600;margin-bottom:8px">Pairing Code Generated</div>
+              <div id="copy" style="color:#fff;font-weight:700;font-size:24px;letter-spacing:4px;cursor:pointer;padding:15px;background:rgba(0,0,0,0.3);border-radius:12px;border:2px solid rgba(255,255,255,0.2);margin:10px 0;transition:all 0.3s ease;" onclick="copyCode()">
+                ${code}
+              </div>
+              <div style="color:#a0aec0;font-size:14px;margin-top:8px">Click code to copy</div>
+            </div>
+          `;
+          
+          // Reset button
+          submit.innerHTML = 'Connect Another Number';
+          submit.disabled = false;
+          
+          // Add success animation
+          const mainBox = document.getElementById('mainBox');
+          mainBox.style.transform = 'translateY(-10px)';
+          setTimeout(() => {
+            mainBox.style.transform = 'translateY(0)';
+          }, 300);
+          
+        } else {
+          throw new Error('No code received');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        pair.innerHTML = `<span style="color:#feb2b2;font-weight:600">Connection failed. Please try again.</span>`;
+        submit.innerHTML = 'Try Again';
+        submit.disabled = false;
       }
     });
 
-    function copyCode(){
-      const el = document.getElementById('copy');
-      if (!el) return;
-      const txt = el.innerText.replace('PAIRING CODE:','').trim();
-      navigator.clipboard?.writeText(txt).then(()=>{
-        const old = el.innerHTML;
-        el.innerHTML = '<strong style="color:lime">CODE COPIED TO CLIPBOARD</strong>';
-        setTimeout(()=> el.innerHTML = old, 1500);
-      }).catch(()=>{});
+    // Copy code function
+    function copyCode() {
+      const codeElement = document.querySelector('#copy');
+      const code = codeElement.textContent;
+      
+      navigator.clipboard.writeText(code).then(() => {
+        const originalText = codeElement.textContent;
+        codeElement.textContent = 'Copied!';
+        codeElement.style.background = 'rgba(72, 187, 120, 0.3)';
+        codeElement.style.borderColor = 'rgba(72, 187, 120, 0.5)';
+        
+        setTimeout(() => {
+          codeElement.textContent = originalText;
+          codeElement.style.background = 'rgba(0,0,0,0.3)';
+          codeElement.style.borderColor = 'rgba(255,255,255,0.2)';
+        }, 2000);
+      });
     }
 
-    // optional: allow pressing Enter on input to submit
-    num.addEventListener('keydown', (e)=> {
-      if (e.key === 'Enter') submit.click();
+    // Enter key support
+    num.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        submit.click();
+      }
+    });
+
+    // Input validation
+    num.addEventListener('input', function() {
+      this.value = this.value.replace(/[^0-9+]/g, '');
     });
   </script>
 </body>
 </html>
-[file content end]
