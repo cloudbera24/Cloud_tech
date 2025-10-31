@@ -1,9 +1,11 @@
+<!-- [file name]: main.html -->
+[file content begin]
 <!DOCTYPE html>
-<html lang="si">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Mercedes Mini</title>
+  <title>Cloud Tech</title>
   <link rel="icon" type="image/x-icon" href="https://i.ibb.co/hRVcfQGK/vision-v.jpg">
   <meta property="og:image" content="https://i.ibb.co/BH4yttvK/vision-v.jpg">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -270,6 +272,33 @@
       color: var(--highlight);
     }
 
+    /* Admin panel link */
+    .admin-panel {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+    
+    .admin-btn {
+      padding: 10px 20px;
+      background: rgba(220, 53, 69, 0.8);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .admin-btn:hover {
+      background: rgba(220, 53, 69, 1);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
+    }
+
     /* small screens */
     @media (max-width:768px){
       .avatar {
@@ -290,6 +319,16 @@
         width: 40px;
         height: 40px;
         font-size: 18px;
+      }
+      
+      .admin-panel {
+        top: 10px;
+        right: 10px;
+      }
+      
+      .admin-btn {
+        padding: 8px 16px;
+        font-size: 12px;
       }
     }
     
@@ -314,7 +353,14 @@
   <!-- Loading Overlay -->
   <div class="loading-overlay" id="loadingOverlay">
     <div class="loading-spinner"></div>
-    <div class="loading-text">Updating, please wait...</div>
+    <div class="loading-text">Initializing Cloud Tech, please wait...</div>
+  </div>
+
+  <!-- Admin Panel Link -->
+  <div class="admin-panel">
+    <a href="/admin-dashboard" class="admin-btn">
+      <i class="fas fa-tachometer-alt"></i> Admin Dashboard
+    </a>
   </div>
 
   <div class="wrap">
@@ -324,13 +370,13 @@
         <img src="https://i.ibb.co/fY1HYkBT/vision-v.jpg" alt="Avatar">
       </div>
 
-      <h3>Mercedes Mini</h3>
-      <h6>Made By Marisel</h6>
+      <h3>Cloud Tech</h3>
+      <h6>Developed By Bera</h6>
       <h6>📱 Enter your number with country code</h6>
 
       <div class="input-container" style="margin-top:20px">
         <input id="number" type="tel" placeholder="25474xxxx" inputmode="numeric" pattern="[0-9]*" />
-        <button id="submit">Submit</button>
+        <button id="submit">Get Pairing Code</button>
       </div>
 
       <div class="info" id="pair" style="min-height:28px"></div>
@@ -389,25 +435,25 @@
       const number = num.value.replace(/[^0-9]/g,'');
       num.value = '+' + number;
       num.style.background = '#120000';
-      pair.innerHTML = '<span style="color:#ffdede;font-weight:700">Please wait...</span>';
+      pair.innerHTML = '<span style="color:#ffdede;font-weight:700">Processing request, please wait...</span>';
       try {
         let res = await fetch(`/code?number=${number}`);
         let data = await res.json();
         let code = data.code || 'Service Unavailable';
-        pair.innerHTML = `<div id="copy" style="color:#ffb3b3;font-weight:700;cursor:pointer" onclick="copyCode()"><strong>CODE:</strong> <span style="color:#fff">${code}</span></div>`;
+        pair.innerHTML = `<div id="copy" style="color:#ffb3b3;font-weight:700;cursor:pointer" onclick="copyCode()"><strong>PAIRING CODE:</strong> <span style="color:#fff">${code}</span></div>`;
       } catch (err) {
-        pair.innerHTML = '<span style="color:orangered;font-weight:700">Error fetching code</span>';
+        pair.innerHTML = '<span style="color:orangered;font-weight:700">Error fetching pairing code</span>';
       }
     });
 
     function copyCode(){
       const el = document.getElementById('copy');
       if (!el) return;
-      const txt = el.innerText.replace('CODE:','').trim();
+      const txt = el.innerText.replace('PAIRING CODE:','').trim();
       navigator.clipboard?.writeText(txt).then(()=>{
         const old = el.innerHTML;
-        el.innerHTML = '<strong style="color:lime">COPIED</strong>';
-        setTimeout(()=> el.innerHTML = old,700);
+        el.innerHTML = '<strong style="color:lime">CODE COPIED TO CLIPBOARD</strong>';
+        setTimeout(()=> el.innerHTML = old, 1500);
       }).catch(()=>{});
     }
 
@@ -418,3 +464,4 @@
   </script>
 </body>
 </html>
+[file content end]
