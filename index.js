@@ -1,5 +1,4 @@
-// [file name]: index.js
-[file content begin]
+// 📄 index.js
 const express = require('express');
 const app = express();
 __path = process.cwd()
@@ -30,28 +29,48 @@ app.use('/', async (req, res, next) => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+    res.json({
+        status: 'healthy',
+        service: 'Cloud Tech WhatsApp Bot',
+        timestamp: new Date().toISOString(),
+        version: '1.0.0'
+    });
+});
+
+// 404 handler
+app.use('*', (req, res) => {
+    res.status(404).json({
+        success: false,
+        error: 'Endpoint not found',
+        availableEndpoints: {
+            user: ['/', '/pair'],
+            admin: ['/admin-dashboard'],
+            api: ['/code', '/admin', '/health']
+        }
+    });
+});
+
+// Error handling middleware
+app.use((error, req, res, next) => {
+    console.error('Server Error:', error);
+    res.status(500).json({
+        success: false,
+        error: 'Internal server error',
+        message: error.message
+    });
+});
+
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`
 🚀 Cloud Tech Server Started Successfully!
-
-📱 User Access Points:
-   • Main Landing Page: http://localhost:${PORT}/
-   • Pairing Interface: http://localhost:${PORT}/pair
-
-📊 Admin Dashboard:
-   • Control Panel: http://localhost:${PORT}/admin-dashboard
-
-🔧 API Endpoints:
-   • Pairing API: http://localhost:${PORT}/code
-   • Admin API: http://localhost:${PORT}/admin
-
-⚡ Server running on port: ${PORT}
-🔒 Binding: 0.0.0.0
-
-Developed by Bera
-Powered by Cloud Tech
+📱 User Pages: http://localhost:${PORT}/ & http://localhost:${PORT}/pair
+📊 Admin Dashboard: http://localhost:${PORT}/admin-dashboard
+🔧 API: http://localhost:${PORT}/code & http://localhost:${PORT}/admin
+⚡ Port: ${PORT} | Binding: 0.0.0.0
+Developed by Bera | Powered by Cloud Tech
 `);
 });
 
 module.exports = app;
-[file content end]
